@@ -9,6 +9,22 @@ const rootDir = path.resolve(__dirname, "../../");
 const envFile = process.env.NODE_ENV === "test" ? ".env.test" : ".env";
 dotenv.config({ path: path.join(rootDir, envFile) });
 
+/**
+ * @typedef {Object} Config
+ * @property {number|string} port
+ * @property {Object} db
+ * @property {string} db.host
+ * @property {string} db.user
+ * @property {string} db.password
+ * @property {string} db.database
+ * @property {number} db.port
+ * @property {string} jwtSecret
+ */
+
+/**
+ * Application configuration loaded from environment variables.
+ * @type {Config}
+ */
 export const config = {
 	port: process.env.PORT || 3000,
 	db: {

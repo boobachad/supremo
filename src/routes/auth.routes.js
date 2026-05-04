@@ -1,27 +1,10 @@
 import { Router } from "express";
 import * as authService from "../services/auth.service.js";
+import { validateEmail, validatePassword } from "../utils/validators.js";
 
 const router = Router();
 
-/**
- * Validates an email address.
- *
- * @param {string} email - The email address to validate.
- * @returns {boolean} True if the email is valid, false otherwise.
- */
-const isValidEmail = (email) => {
-	return typeof email === "string" && email.includes("@") && email.length > 3;
-};
-
-/**
- * Validates a password.
- *
- * @param {string} password - The password to validate.
- * @returns {boolean} True if the password is valid, false otherwise.
- */
-const isValidPassword = (password) => {
-	return typeof password === "string" && password.length >= 8;
-};
+// Validation moved to its own specific file for better validation
 
 /**
  * Route serving user registration.
@@ -39,17 +22,10 @@ router.post("/register", async (req, res, next) => {
 			return res.status(400).json({ error: "Email and password are required" });
 		}
 
-		if (!isValidEmail(email)) {
-			return res.status(400).json({ error: "Invalid email format" });
-		}
+		const validEmail = validateEmail(email);
+		validatePassword(password);
 
-		if (!isValidPassword(password)) {
-			return res
-				.status(400)
-				.json({ error: "Password must be at least 8 characters long" });
-		}
-
-		const user = await authService.register(email, password);
+		const user = await authService.register(validEmail, password);
 		return res.status(201).json(user);
 	} catch (err) {
 		next(err);
@@ -72,7 +48,12 @@ router.post("/login", async (req, res, next) => {
 			return res.status(400).json({ error: "Email and password are required" });
 		}
 
-		const token = await authService.login(email, password);
+		const validEmail = validateEmail(email);
+		if (typeof password !== "string") {
+			return res.status(400).json({ error: "Password must be a string" });
+		}
+
+		const token = await authService.login(validEmail, password);
 		return res.status(200).json({ token });
 	} catch (err) {
 		next(err);
