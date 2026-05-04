@@ -1,8 +1,21 @@
+import mysql from "mysql2/promise";
+import { config } from "./env.js";
 import pool from "./db.js";
 
 async function migrate() {
+	let connection;
 	try {
 		console.log("db migration init");
+
+		// Create database if it doesn't exist before trying to use the pool
+		connection = await mysql.createConnection({
+			host: config.db.host,
+			user: config.db.user,
+			password: config.db.password,
+			port: config.db.port,
+		});
+		await connection.query(`CREATE DATABASE IF NOT EXISTS \`${config.db.database}\``);
+		console.log(`database ${config.db.database} ensured.`);
 
 		// Users table
 		await pool.query(`
@@ -55,6 +68,7 @@ async function migrate() {
 		console.error("migration failed:", error);
 		process.exitCode = 1;
 	} finally {
+		if (connection) await connection.end();
 		await pool.end();
 	}
 }
