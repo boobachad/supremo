@@ -2,7 +2,7 @@ import { AppError } from "./errors.js";
 
 /**
  * Validates and sanitizes an email address.
- * 
+ *
  * @param {string} email - The email address to validate.
  * @returns {string} The trimmed and validated email.
  * @throws {AppError} If the email is missing, not a string, or invalid format.
@@ -24,7 +24,7 @@ export const validateEmail = (email) => {
 
 /**
  * Validates a password for strong complexity.
- * 
+ *
  * @param {string} password - The password to validate.
  * @returns {boolean} True if the password is valid.
  * @throws {AppError} If the password does not meet complexity requirements.
@@ -65,7 +65,7 @@ export const validatePassword = (password) => {
 
 /**
  * Validates that a value is a positive integer greater than 0.
- * 
+ *
  * @param {any} value - The value to validate.
  * @param {string} [fieldName="Value"] - The name of the field for error messages.
  * @returns {number} The parsed positive integer.
@@ -90,7 +90,7 @@ export const validatePositiveInteger = (value, fieldName = "Value") => {
 
 /**
  * Validates that a date string is in the future.
- * 
+ *
  * @param {string} dateString - The ISO date string to validate.
  * @returns {Date} The parsed Date object.
  * @throws {AppError} If the date is invalid or not in the future.
@@ -111,7 +111,7 @@ export const validateFutureDate = (dateString) => {
 
 /**
  * Validates a price value.
- * 
+ *
  * @param {any} value - The price value to validate.
  * @returns {number} The parsed price number.
  * @throws {AppError} If the price is invalid, negative, or has > 2 decimal places.

@@ -1,6 +1,6 @@
 import mysql from "mysql2/promise";
-import { config } from "./env.js";
 import pool from "./db.js";
+import { config } from "./env.js";
 
 async function migrate() {
 	let connection;
@@ -14,7 +14,9 @@ async function migrate() {
 			password: config.db.password,
 			port: config.db.port,
 		});
-		await connection.query(`CREATE DATABASE IF NOT EXISTS \`${config.db.database}\``);
+		await connection.query(
+			`CREATE DATABASE IF NOT EXISTS \`${config.db.database}\``,
+		);
 		console.log(`database ${config.db.database} ensured.`);
 
 		// Users table

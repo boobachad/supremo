@@ -66,24 +66,28 @@ export default function MyBookings({ token }) {
 			<table data-testid="bookings-table">
 				<thead>
 					<tr>
-						<th>Event ID</th>
+						<th>Event Name</th>
 						<th>Quantity</th>
+						<th>Status</th>
 						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
 					{bookings.map((booking) => (
 						<tr key={booking.id} data-testid={`booking-row-${booking.id}`}>
-							<td>{booking.event_id || booking.eventId}</td>
+							<td>{booking.event_title || booking.event_id}</td>
 							<td>{booking.quantity}</td>
+							<td>{booking.status}</td>
 							<td>
-								<button
-									type="button"
-									onClick={() => handleCancel(booking.id)}
-									data-testid={`cancel-button-${booking.id}`}
-								>
-									Cancel
-								</button>
+								{booking.status !== "cancelled" && (
+									<button
+										type="button"
+										onClick={() => handleCancel(booking.id)}
+										data-testid={`cancel-button-${booking.id}`}
+									>
+										Cancel
+									</button>
+								)}
 							</td>
 						</tr>
 					))}

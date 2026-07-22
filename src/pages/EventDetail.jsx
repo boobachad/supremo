@@ -5,7 +5,7 @@ export default function EventDetail({ token }) {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const [event, setEvent] = useState(null);
-	const [quantity, setQuantity] = useState(1);
+	const [quantity, setQuantity] = useState("1");
 	const [error, setError] = useState("");
 	const [success, setSuccess] = useState("");
 
@@ -42,7 +42,10 @@ export default function EventDetail({ token }) {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${token}`,
 				},
-				body: JSON.stringify({ eventId: parseInt(id, 10), quantity }),
+				body: JSON.stringify({
+					eventId: parseInt(id, 10),
+					quantity: parseInt(quantity, 10),
+				}),
 			});
 
 			const data = await response.json();
@@ -87,7 +90,7 @@ export default function EventDetail({ token }) {
 						type="number"
 						min="1"
 						value={quantity}
-						onChange={(e) => setQuantity(parseInt(e.target.value, 10) || 1)}
+						onChange={(e) => setQuantity(e.target.value)}
 						data-testid="quantity-input"
 						required
 					/>
