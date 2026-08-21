@@ -10,3 +10,7 @@ beforeEach(async () => {
 	await db.query("TRUNCATE TABLE users");
 	await db.query("SET FOREIGN_KEY_CHECKS = 1");
 });
+
+after(async () => {
+	await db.end();
+});
