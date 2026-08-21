@@ -1,4 +1,4 @@
-# Supremo Ticket Booking Platform
+# Supremo Ticket Booking Platform [![Supremo Booking Test Suite](https://github.com/boobachad/supremo/actions/workflows/ci.yml/badge.svg)](https://github.com/boobachad/supremo/actions/workflows/ci.yml)
 
 The entire focus of the project is around testing with styling restricted to basic html only.
 
