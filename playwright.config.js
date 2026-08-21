@@ -21,7 +21,7 @@ export default defineConfig({
     webServer: [
         {
             command: 'node src/server.js',
-            url: 'http://127.0.0.1:3000',
+            url: 'http://127.0.0.1:3000/health',
             reuseExistingServer: !process.env.CI,
             stdout: 'pipe',
             stderr: 'pipe',

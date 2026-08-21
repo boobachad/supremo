@@ -10,6 +10,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// this was added after the ci run failed due to playwright webserver timeout issue
+app.get("/health", (_req, res) => {
+	res.status(200).json({ message: "OK" });
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/bookings", bookingRoutes);
